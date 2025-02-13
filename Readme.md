@@ -1,8 +1,3 @@
-# Git Playground 
+# Git Workshop competiton
 
-This is a file that demonstrates working with git
-
-- Checklist:
-- [ ] Stashing
-- [ ] Reset
-- [ ] Fork and PR workflows 
+Welcome to the git workshop competition.
