@@ -1,24 +1,36 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g
+CHECK_FLAGS = -lcheck -lm -lsubunit
 
-SRCS = src/factorial.c src/reverse.c
-TEST_SRCS = tests/test_factorial.c tests/test_reverse.c
-OBJS = $(SRCS:.c=.o)
-TEST_OBJS = $(TEST_SRCS:.c=.o)
-TEST_EXECS = $(TEST_SRCS:.c=)
+# Directories
+SRC_DIR = src
+TEST_DIR = tests
+BIN_DIR = bin
 
-all: $(TEST_EXECS)
+# Source and test files
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+TESTS = $(wildcard $(TEST_DIR)/test_*.c)
+TEST_BINS = $(patsubst $(TEST_DIR)/test_%.c, $(BIN_DIR)/test_%, $(TESTS))
 
-test_factorial: tests/test_factorial.c src/factorial.o
-    $(CC) $(CFLAGS) -o $@ $^
+# Default target
+all: $(TEST_BINS)
+	@echo "All tests compiled."
 
-test_reverse: tests/test_reverse.c src/reverse.o
-    $(CC) $(CFLAGS) -o $@ $^
+# Rule to compile test binaries
+$(BIN_DIR)/test_%: $(TEST_DIR)/test_%.c $(SRCS)
+	@mkdir -p $(BIN_DIR)
+	$(CC) $(CFLAGS) -o $@ $< $(SRCS) $(CHECK_FLAGS)
 
-%.o: %.c
-    $(CC) $(CFLAGS) -c -o $@ $<
+# Rule to run all tests
+test: $(TEST_BINS)
+	@for test in $(TEST_BINS); do \
+		echo "Running $$test..."; \
+		$$test || exit 1; \
+	done
+	@echo "All tests passed."
 
+# Clean up build files
 clean:
-    rm -f $(OBJS) $(TEST_OBJS) $(TEST_EXECS)
+	rm -rf $(BIN_DIR)
 
-.PHONY: all clean
+.PHONY: all test clean
