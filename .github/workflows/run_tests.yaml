@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Install dependencies (e.g., Check testing framework)
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y check
+
+      # Run `make test` to compile and run tests
+      - name: Run tests
+        run: |
+          make test
