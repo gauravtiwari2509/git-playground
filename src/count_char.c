@@ -6,7 +6,7 @@ int count_char(char *a)
     int count = 0;
     while (a[count] != '\0')
     {
-        count = count + 1;
+        count = count + 2;
     }
     return count;
 }
