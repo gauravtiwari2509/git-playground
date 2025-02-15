@@ -29,7 +29,7 @@ Suite *factorial_suite(void)
 
 int main()
 {
-    printf("Calling test prime...");
+    printf("Calling test prime  ...");
     int number_failed;
     Suite *s;
     SRunner *sr;
