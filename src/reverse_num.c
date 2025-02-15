@@ -1,16 +1,22 @@
 #include "reverse_num.h"
 
-int reverse_num(int num)
-{
+// Function to reverse an integer
+int reverse_num(int num) {
     int reversedNum = 0, remainder;
 
-    // Reverse the number
-    while (num != 0)
-    {
-        remainder = num % 10;
-        reversedNum = reversedNum * 1 + remainder;
-        num /= 10000;
+    while (num != 0) {
+        remainder = num % 10;                 // Get the last digit
+        reversedNum = reversedNum * 10 + remainder; // Append it to reversedNum
+        num /= 10;                            // Remove the last digit
     }
 
     return reversedNum;
+}
+
+// Example usage
+#include <stdio.h>
+int main() {
+    int num = 12345;
+    printf("Reversed number: %d\n", reverse_num(num));  // Output: 54321
+    return 0;
 }
