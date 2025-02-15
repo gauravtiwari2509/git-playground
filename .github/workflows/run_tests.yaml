@@ -22,6 +22,7 @@ jobs:
         run: |
           # Generate hashes of the current test files
           find tests/ -type f -exec sha256sum {} \; > current_hashes.txt
+          echo ${{cat current_hashes.txt}}
 
           # Compare with the expected hashes
           if ! diff -q tests_hashes.txt current_hashes.txt; then
