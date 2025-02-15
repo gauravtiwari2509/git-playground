@@ -25,7 +25,7 @@ jobs:
           cat current_hashes.txt
 
           # Compare with the expected hashes
-          if ! diff -q tests_hashes.txt current_hashes.txt; then
+          if ! diff -q <(sort tests_hashes.txt) <(sort current_hashes.txt); then
             echo "Error: Test files have been modified!"
             exit 1
           fi
