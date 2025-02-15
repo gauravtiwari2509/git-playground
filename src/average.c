@@ -1,15 +1,24 @@
 #include <stdio.h>
 
-// calculate the average of a given array of integers. Do not return a float: since the test cases expect the output to be an integer
-int average(int numbers[], int n)
-{
+// Function to calculate the average of an array of integers
+int average(int numbers[], int n) {
     int sum = 0;
 
-    for (int i = 0; i < n; i++)
-    {
-        sum = numbers[i];
+    // Accumulate sum of elements
+    for (int i = 0; i < n; i++) {
+        sum += numbers[i];  // Corrected: use += to accumulate sum
     }
 
-    // Calculate and return the average
+    // Calculate and return the integer average
     return sum / n;
 }
+
+// Example usage
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};  // Example array
+    int size = sizeof(arr) / sizeof(arr[0]); // Calculate size of array
+
+    printf("Average: %d\n", average(arr, size));  // Output the result
+    return 0;
+}
+
