@@ -1,12 +1,14 @@
 #include <check.h>
-#include "../src/factorial.h" // Include the factorial function`
+#include "../src/prime.h" // Include the factorial function`
 #include <stdio.h>
+#include <stdbool.h>
 
-START_TEST(test_factorial)
+START_TEST(test_prime)
 {
-    ck_assert_int_eq(factorial(5), 120);
-    ck_assert_int_eq(factorial(0), 1);
-    ck_assert_int_eq(factorial(10), 3628800);
+    ck_assert_int_eq(prime(1),false);
+    ck_assert_int_eq(prime(7), true);
+    ck_assert_int_eq(prime(9), false);
+
 }
 END_TEST
 
@@ -19,7 +21,7 @@ Suite *factorial_suite(void)
 
     // core test case
     tc_core = tcase_create("Core");
-    tcase_add_test(tc_core, test_factorial);
+    tcase_add_test(tc_core, test_prime);
     suite_add_tcase(s, tc_core);
 
     return s;
@@ -27,7 +29,7 @@ Suite *factorial_suite(void)
 
 int main()
 {
-    printf("Calling test factorial...");
+    printf("Calling test prime...");
     int number_failed;
     Suite *s;
     SRunner *sr;

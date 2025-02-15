@@ -17,6 +17,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+        # Verify test files have not been modified
+      - name: Verify test files
+        run: |
+          # Generate hashes of the current test files
+          find tests/ -type f -exec sha256sum {} \; > current_hashes.txt
+
+          # Compare with the expected hashes
+          if ! diff -q tests_hashes.txt current_hashes.txt; then
+            echo "Error: Test files have been modified!"
+            exit 1
+          fi
+
       # Install dependencies (e.g., Check testing framework)
       - name: Install dependencies
         run: |
